@@ -1,3 +1,4 @@
+import { Artist } from './artist';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./artist.component.css']
 })
 export class ArtistComponent implements OnInit {
+  artists: Artist[] = [];
 
-  constructor() { }
+  constructor() {
+    this.artists.push(new Artist('SOnin', 'aa'));
+    this.artists.push(new Artist('SOnin', 'aa'));
+    this.artists.push(new Artist('SOnin', 'aa'));
+  }
 
   ngOnInit() {
   }
