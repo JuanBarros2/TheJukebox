@@ -10,9 +10,9 @@ export class ArtistComponent implements OnInit {
   artists: Artist[] = [];
 
   constructor() {
-    this.artists.push(new Artist('SOnin', 'aa'));
-    this.artists.push(new Artist('SOnin', 'aa'));
-    this.artists.push(new Artist('SOnin', 'aa'));
+    for ( let i = 0; i <= 10; i++) {
+      this.artists.push(new Artist('SOnin', 'aa'));
+    }
   }
 
   ngOnInit() {
