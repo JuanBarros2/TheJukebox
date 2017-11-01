@@ -1,2 +1,27 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet>
+<div class="container">
+
+  <div class="card text-center">
+    <div class="card-body">
+      <router-outlet>
+        <ngb-progressbar [striped] = "true" [animated] = "true" type="warning" [value]="100" [max]="100"></ngb-progressbar>
+      </router-outlet>
+    </div>
+  <div class="card-header">
+    <ul class="nav nav-pills nav-fill card-header-pills justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive = "active" routerLink = "/artistas" >Artistas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive = "active" routerLink = "/musicas" >Músicas</a>
+      </li>
+    </ul>
+    <ul class="nav nav-pills nav-fill card-header-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive = "active" routerLink = "/albuns">Álbuns</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive = "active" routerLink = "/playlists">Playlist</a>
+        </li>
+      </ul>
+  </div>
+</div>
