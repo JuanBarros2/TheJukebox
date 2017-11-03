@@ -1,0 +1,36 @@
+<h4>Adicionar artista:</h4>
+<form #formArtist = "ngForm" (ngSubmit)="onSubmit(formArtist)" >
+  <div [ngClass]="
+  {
+    'form-group' : true,
+    'has-warning' : !name.valid && name.touched,
+    'has-success' : name.valid
+  }">
+    <label class="form-control-label" for="name">Nome</label>
+    <input type="text" [ngClass]="{
+      'form-control' : true,
+      'form-control-warning' : !name.valid && name.touched,
+      'form-control-success' : name.valid
+    }" id="name" name="name" placeholder="Digite o nome" [(ngModel)]= "artist.name" required #name="ngModel" (blur)="searchName(name.value)" >
+    <small *ngIf="!name.valid && name.touched" class="form-text">Nome vazio</small>
+  </div>
+
+  <div [ngClass]="
+  {
+    'form-group' : true,
+    'has-warning' : !photo.valid && photo.touched,
+    'has-success' : photo.valid
+  }">
+    <label class="form-control-label" for="photo">Foto</label>
+    <input type="text" [ngClass]="{
+      'form-control' : true,
+      'form-control-warning' : !photo.valid && photo.touched,
+      'form-control-success' : photo.valid
+    }" id="photo" name="photo" placeholder="Cole aqui o link da foto" [(ngModel)]= "artist.photo" required #photo="ngModel" pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$">
+    <small *ngIf="!photo.valid && photo.touched" class="form-text">Endereço de foto vazio</small>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!formArtist.valid">Adicionar artista</button>
+</form>
+<pre>JSON: {{formArtist.value | json}} </pre>
+

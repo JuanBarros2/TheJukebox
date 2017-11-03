@@ -1,0 +1,17 @@
+.has-success{
+  color: #5cb85c;
+}
+
+.form-control-success{
+  color: #5cb85c;
+  border: 1px solid #5cb85c;
+}
+
+.has-warning{
+  color: #f0ad4e;
+}
+.form-control-warning{
+  color: #f0ad4e;
+  border: 1px solid #f0ad4e;
+}
+

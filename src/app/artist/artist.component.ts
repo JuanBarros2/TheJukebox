@@ -1,6 +1,8 @@
 import { Artist } from './artist';
 import { Component, OnInit } from '@angular/core';
 
+import { ArtistsService } from './artists.service';
+
 @Component({
   selector: 'app-artist',
   templateUrl: './artist.component.html',
@@ -9,10 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class ArtistComponent implements OnInit {
   artists: Artist[] = [];
 
-  constructor() {
-    for ( let i = 0; i <= 10; i++) {
-      this.artists.push(new Artist('SOnin', 'aa'));
-    }
+  constructor(private artistsService: ArtistsService) {
+    this.artists = artistsService.getArtists();
   }
 
   ngOnInit() {
