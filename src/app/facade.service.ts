@@ -20,9 +20,4 @@ export class FacadeService {
     return this.artistService.getArtists();
   }
 
-  addMusic(music: Music, album: Album): boolean {
-    return this.albumService.canAddMusic(music, album) ?
-      this.albumService.addAlbum(album) && this.musicService.addMusic(music) : false;
-  }
-
 }

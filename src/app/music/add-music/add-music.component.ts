@@ -20,7 +20,7 @@ export class AddMusicComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private artistsService: ArtistsService,
+    private musicService: MusicService,
     private formGroup: FormBuilder,
     private route: Router
   ) {
@@ -29,7 +29,6 @@ export class AddMusicComponent implements OnInit {
   ngOnInit() {
     this.form = this.formGroup.group({
       name : [null, Validators.required],
-      photo : [null, Validators.required],
       artist: [null, Validators.required],
       album: [null, Validators.required],
       year: [null, Validators.required],
@@ -38,10 +37,10 @@ export class AddMusicComponent implements OnInit {
   }
 
   onSubmit() {
-    const artist = this.form.value;
+    const music = this.form.value;
 
     try {
-      this.artistsService.addArtist(artist);
+      this.musicService.addMusic(music);
       this.route.navigate(['artistas']);
     } catch (e) {
 

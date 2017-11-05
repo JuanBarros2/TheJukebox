@@ -1,3 +1,4 @@
+import { MusicService } from './music.service';
 import { UtilModule } from './../util/util.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MusicRoutingModule } from './music-routing.module';
@@ -14,6 +15,7 @@ import { AddMusicComponent } from './add-music/add-music.component';
     ReactiveFormsModule,
     UtilModule
   ],
+  providers: [MusicService],
   declarations: [ AddMusicComponent, MusicComponent],
   exports: [AddMusicComponent, MusicComponent]
 })

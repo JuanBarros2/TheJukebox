@@ -1,4 +1,4 @@
-import { Music } from '../music/music';
+import { Music } from './../music/music';
 
 export class Album {
 
@@ -11,5 +11,9 @@ export class Album {
 
   hasMusic(music: Music): boolean {
     return (music != null && this.musics.indexOf(music) !== -1);
+  }
+
+  addMusic(music: Music) {
+    this.musics.push(music);
   }
 }
