@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -10,13 +9,15 @@ import { ArtistModule } from './artist/artist.module';
 import { MusicModule } from './music/music.module';
 import { AlbumModule } from './album/album.module';
 import { PlaylistModule } from './playlist/playlist.module';
+import { FacadeService } from './facade.service';
+import { BreadcrumbComponent } from './util/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BreadcrumbComponent
   ],
   imports: [
-    NgbModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
     MusicModule,
@@ -24,7 +25,7 @@ import { PlaylistModule } from './playlist/playlist.module';
     PlaylistModule,
     AlbumModule
   ],
-  providers: [],
+  providers: [FacadeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

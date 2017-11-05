@@ -1,15 +1,69 @@
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Album } from '../../album/album';
+import { FacadeService } from './../../facade.service';
+import { ArtistsService } from './../../artist/artists.service';
+import { AlbumService } from './../../album/album.service';
+import { Music } from '../music';
 import { Component, OnInit } from '@angular/core';
+
+import { MusicService } from './../music.service';
 
 @Component({
   selector: 'app-add-music',
   templateUrl: './add-music.component.html',
   styleUrls: ['./add-music.component.css']
 })
+
 export class AddMusicComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
 
-  ngOnInit() {
+  constructor(
+    private artistsService: ArtistsService,
+    private formGroup: FormBuilder,
+    private route: Router
+  ) {
   }
 
+  ngOnInit() {
+    this.form = this.formGroup.group({
+      name : [null, Validators.required],
+      photo : [null, Validators.required],
+      artist: [null, Validators.required],
+      album: [null, Validators.required],
+      year: [null, Validators.required],
+      duration: [null, Validators.required]
+    });
+  }
+
+  onSubmit() {
+    const artist = this.form.value;
+
+    try {
+      this.artistsService.addArtist(artist);
+      this.route.navigate(['artistas']);
+    } catch (e) {
+
+    }
+  }
+
+  verifyValidTouched(field: string) {
+    return (
+      !this.form.get(field).valid &&
+      (this.form.get(field).touched || this.form.get(field).dirty)
+    );
+  }
+
+  applyCssError(field: string) {
+    return {
+      'has-error': this.verifyValidTouched(field),
+      'has-success': this.form.get(field).valid,
+      'has-feedback': this.verifyValidTouched(field)
+    };
+  }
+
+  isFormValid() {
+    return this.form.valid;
+  }
 }

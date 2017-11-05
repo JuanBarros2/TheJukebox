@@ -1,3 +1,42 @@
-<p>
-  add-music works!
-</p>
+<div class="col-sm-8">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Adicionar música</h3>
+    </div>
+    <div class="panel-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('name')">
+            <label for="name" class="control-label">Nome</label>
+            <input type="text" class="form-control" id="name" placeholder="Nome" formControlName="name" aria-describedby="name">
+            <app-field-error-form msgErro="Nome inválido" [showErro]="verifyValidTouched('name')"></app-field-error-form>
+        </div>
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('artist')">
+          <label for="artista" class="control-label">Artista</label>
+          <input type="text" formControlName="artist" class="form-control" id="artist" placeholder="Artista">
+          <app-field-error-form msgErro="Artista inválido" [showErro]="verifyValidTouched('artist')"></app-field-error-form>
+        </div>
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('album')">
+          <label for="album" class="control-label">Álbum</label>
+          <input type="text" formControlName="album" class="form-control" id="album" placeholder="Álbum">
+          <app-field-error-form msgErro="Álbum inválido" [showErro]="verifyValidTouched('album')"></app-field-error-form>
+        </div>
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('album')">
+          <label for="year" class="control-label">Ano de Lançamento</label>
+          <input type="text" formControlName="year" class="form-control" id="year" placeholder="Ano de Lançamento">
+          <app-field-error-form msgErro="Ano de Lançamento inválido" [showErro]="verifyValidTouched('year')"></app-field-error-form>
+        </div>
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('duration')">
+          <label for="duration" class="control-label">Duração</label>
+          <input type="text" formControlName="duration" class="form-control" id="duration" placeholder="Duração">
+          <app-field-error-form msgErro="Duração inválido" [showErro]="verifyValidTouched('duration')"></app-field-error-form>
+        </div>
+
+        <div class="form-group col-sm-6">
+          <div >
+            <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Adicionar artista</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

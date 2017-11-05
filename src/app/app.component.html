@@ -1,21 +1,28 @@
 <div class="container">
-  <nav class="navbar container fixed-top navbar-light justify-content-center" style="background-color: #e3f2fd;">
-    <ul class="nav nav-pills nav-fill ">
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive = "active" routerLink = "/artistas" >Artistas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive = "active" routerLink = "/musicas" >Músicas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive = "active" routerLink = "/albuns">Álbuns</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive = "active" routerLink = "/playlists">Playlist</a>
-      </li>
-    </ul>
-  </nav>
-  <router-outlet></router-outlet>
-</div>
+  <div class="masterhead">
+    <h3>The Jukebox</h3>
+    <nav class="navbar navbar-default ">
+      <ul class="nav nav-pills">
+        <li role="presentation" routerLinkActive = "active" >
+          <a routerLink = "/artistas" >Artistas</a>
+        </li>
+        <li role="presentation" routerLinkActive = "active" >
+          <a routerLink = "/musicas" >Músicas</a>
+        </li>
+        <li role="presentation" routerLinkActive = "active" >
+          <a routerLink = "/albuns">Álbuns</a>
+        </li>
+        <li role="presentation" routerLinkActive = "active" >
+          <a routerLink = "/playlists">Playlist</a>
+        </li>
+      </ul>
+      <app-breadcrumb></app-breadcrumb>
+    </nav>
+  </div>
 
+  <div class="row">
+    <router-outlet>
+    </router-outlet>
+  </div>
+</div>
 

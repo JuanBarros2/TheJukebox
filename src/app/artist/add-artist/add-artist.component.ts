@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DoubleArtistError } from '../../exception/double-artist-error';
 import { ArtistsService } from './../artists.service';
 import { Artist } from '../artist';
 import { Component, OnInit } from '@angular/core';
@@ -9,23 +12,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddArtistComponent implements OnInit {
 
-  artist: Artist = new Artist('', '');
+  form: FormGroup;
+  isNameUnique: boolean = true;
 
-  constructor(private artistsService: ArtistsService) {}
+  constructor(
+    private artistsService: ArtistsService,
+    private formGroup: FormBuilder,
+    private route: Router
+  ) {
+  }
 
   ngOnInit() {
+    this.form = this.formGroup.group({
+      name : [null, Validators.required],
+      photo : [null, Validators.required]
+    });
   }
 
-  addArtist(artist: Artist) {
-    this.artistsService.addArtist(artist);
+  onSubmit() {
+    const artist = this.form.value;
+
+    try {
+      this.artistsService.addArtist(artist);
+      this.route.navigate(['artistas']);
+    } catch (e) {
+      if (e instanceof DoubleArtistError) {
+        console.log(e.getMessage());
+        this.form.get('name').setValue('');
+        this.isNameUnique = false;
+      }
+    }
   }
 
-  onSubmit(form) {
-    console.log(form);
-    this.addArtist(new Artist(form.value.name, form.value.photo));
+  verifyValidTouched(field: string) {
+    return (
+      !this.form.get(field).valid &&
+      (this.form.get(field).touched || this.form.get(field).dirty)
+    );
   }
 
-  searchName(name) {
-    console.log(name);
+  applyCssError(field: string) {
+    return {
+      'has-error': this.verifyValidTouched(field),
+      'has-success': this.form.get(field).valid,
+      'has-feedback': this.verifyValidTouched(field)
+    };
   }
+
+  isFormValid() {
+    return this.form.valid;
+  }
+
 }

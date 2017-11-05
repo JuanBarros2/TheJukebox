@@ -9,12 +9,6 @@ import { ArtistsService } from './artists.service';
   styleUrls: ['./artist.component.css']
 })
 export class ArtistComponent implements OnInit {
-  artists: Artist[] = [];
-
-  constructor(private artistsService: ArtistsService) {
-    this.artists = artistsService.getArtists();
-  }
-
   ngOnInit() {
   }
 

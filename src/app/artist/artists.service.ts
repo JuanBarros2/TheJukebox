@@ -1,3 +1,4 @@
+import { DoubleArtistError } from './../exception/double-artist-error';
 import { Artist } from './artist';
 import { Injectable } from '@angular/core';
 
@@ -14,11 +15,19 @@ export class ArtistsService {
   }
 
   addArtist(artist: Artist) {
-    this.artists.push(artist);
+    if (artist != null) {
+      for (let i = 0; i < this.artists.length; i++) {
+        if (artist.name.toUpperCase() === this.artists[i].name.toUpperCase()) {
+          throw new DoubleArtistError();
+        }
+      }
+      this.artists.push(artist);
+    }
   }
 
   removeArtist(artist: Artist) {
     const index = this.artists.indexOf(artist);
     delete this.artists[index];
   }
+
 }
