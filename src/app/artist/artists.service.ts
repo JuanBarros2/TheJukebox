@@ -10,8 +10,13 @@ export class ArtistsService {
   constructor() {
   }
 
-  getArtists() {
-    return this.artists.sort();
+  getArtists(number?, query?) {
+    const lenght = this.artists.length ;
+    let artists = number < lenght ? this.artists.slice((-1) * number) : this.artists;
+    if (query) {
+      artists = artists.filter( (artist) => artist.name.toUpperCase().includes(query.toUpperCase()));
+    }
+    return artists;
   }
 
   addArtist(artist: Artist) {

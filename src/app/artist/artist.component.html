@@ -1,16 +1,10 @@
 <div class="col-sm-8" routerLinkActive="hidden" >
-  <div class="list-group" *ngFor="let artist of artists" >
-    <a class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{artist.name}}</h5>
-        <small class="text-muted">3 days ago</small>
-      </div>
-      <img src="{{artist.photo}}" alt="..." class="rounded-circle">
-    </a>
-  </div>
+  <app-search-artist (onQuery)="changeParameter($event)"></app-search-artist>
+  <app-list-artists [queryParameter]="query" quantity="5" ></app-list-artists>
   <div class="fixed-action-btn" style="right: auto">
     <button class="btn btn-primary" routerLink = "./add" >Adicionar Artista</button>
   </div>
+
 </div>
 
 <router-outlet></router-outlet>

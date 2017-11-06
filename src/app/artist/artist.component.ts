@@ -10,13 +10,16 @@ import { ArtistsService } from './artists.service';
 })
 export class ArtistComponent implements OnInit {
 
-  artists: Artist[] = [];
+  query: string;
 
-  constructor(private artistsService: ArtistsService) {
-    this.artists = artistsService.getArtists();
+  constructor() {
   }
 
   ngOnInit() {
+  }
+
+  changeParameter(event) {
+    this.query = event.query;
   }
 
 }

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-sm-8">
+    <div class="list-group" *ngFor="let artist of buildArtists()" >
+      <a class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{artist.name}}</h5>
+        </div>
+        <img src="{{artist.photo}}" alt="..." class="rounded-circle">
+      </a>
+    </div>
+    <h5 *ngIf="artists.length == 0"> Nenhum artista cadastrado</h5>
+  </div>
+</div>
