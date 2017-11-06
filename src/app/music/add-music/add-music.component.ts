@@ -19,12 +19,15 @@ import { MusicService } from './../music.service';
 export class AddMusicComponent implements OnInit {
 
   form: FormGroup;
+  artists: {};
 
   constructor(
     private musicService: MusicService,
     private formGroup: FormBuilder,
-    private route: Router
+    private route: Router,
+    private artistService: ArtistsService
   ) {
+    this.artists = this.artistService.getArtists();
   }
 
   ngOnInit() {

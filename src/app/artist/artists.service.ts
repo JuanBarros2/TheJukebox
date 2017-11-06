@@ -11,7 +11,7 @@ export class ArtistsService {
   }
 
   getArtists() {
-    return this.artists;
+    return this.artists.sort();
   }
 
   addArtist(artist: Artist) {
