@@ -18,7 +18,7 @@ import { AddMusicComponent } from './add-music/add-music.component';
     BsModalModule
   ],
   providers: [MusicService],
-  declarations: [ AddMusicComponent, MusicComponent],
+  declarations: [AddMusicComponent, MusicComponent],
   exports: [AddMusicComponent, MusicComponent]
 })
 export class MusicModule { }

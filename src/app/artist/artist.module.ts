@@ -11,7 +11,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ArtistsService } from './artists.service';
-import { ListArtistsComponent } from './list-artists/list-artists.component';
 
 @NgModule({
   imports: [
@@ -22,7 +21,7 @@ import { ListArtistsComponent } from './list-artists/list-artists.component';
     UtilModule
   ],
   providers: [ArtistsService],
-  declarations: [ ArtistComponent, AddArtistComponent, ListArtistsComponent],
+  declarations: [ ArtistComponent, AddArtistComponent],
   exports: [ArtistComponent]
 })
 export class ArtistModule { }

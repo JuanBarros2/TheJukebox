@@ -7,13 +7,15 @@ const musicRoutes: Routes = [
   { path: 'musicas', component: MusicComponent,
     data: {
       breadcrumb: 'Música'
-    }
-},
-  { path: 'musicas/add', component: AddMusicComponent,
-      data: {
-        breadcrumb: 'Adicionar música'
-    }
+    },
+    children: [
+       {
+          path: 'add', component: AddMusicComponent,
+          data: { breadcrumb: 'Adicionar música' }
+        }
+    ]
   }
+
 ];
 
 @NgModule({
