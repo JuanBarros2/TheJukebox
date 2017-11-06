@@ -1,3 +1,4 @@
+import { DoubleMusicError } from '../../exception/double-music-error';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Album } from '../../album/album';
@@ -41,9 +42,11 @@ export class AddMusicComponent implements OnInit {
 
     try {
       this.musicService.addMusic(music);
-      this.route.navigate(['artistas']);
+      this.route.navigate(['musicas']);
     } catch (e) {
-
+      if (e instanceof DoubleMusicError) {
+        this.form.value.name = '';
+      }
     }
   }
 

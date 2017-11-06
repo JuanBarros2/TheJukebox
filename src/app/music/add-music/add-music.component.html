@@ -20,7 +20,7 @@
           <input type="text" formControlName="album" class="form-control" formControlName="album" id="album" placeholder="Álbum">
           <app-field-error-form msgErro="Álbum inválido" [showErro]="verifyValidTouched('album')"></app-field-error-form>
         </div>
-        <div class="form-group col-sm-6" [ngClass]="applyCssError('album')">
+        <div class="form-group col-sm-6" [ngClass]="applyCssError('year')">
           <label for="year" class="control-label">Ano de Lançamento</label>
           <input type="text" formControlName="year" class="form-control" formControlName="year" id="year" placeholder="Ano de Lançamento">
           <app-field-error-form msgErro="Ano de Lançamento inválido" [showErro]="verifyValidTouched('year')"></app-field-error-form>

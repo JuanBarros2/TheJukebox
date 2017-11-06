@@ -7,35 +7,32 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MusicService {
 
-  albuns: Album[];
+  albuns: any = {};
 
-  constructor() { }
+  constructor() {
+    this.albuns = {};
+  }
 
   addMusic(form) {
     const album = form.album;
     const artist = form.artist;
 
-    console.log(form);
-    if (this.existsAlbum(album)) {
-      if (this.albuns[album.name].hasMusic(form)) {
-        throw new DoubleMusicError();
-      } else {
-        this.albuns[album.name].addMusic(form);
-      }
+    if (!this.existsAlbum(album)) {
+      console.log('Criando album');
+      this.albuns[album] = new Album(album);
     } else {
-      this.albuns[album.name] = new Album(form.album);
-      this.albuns[album.name].addMusic(form);
+      console.log('Album já existe');
+      if (this.albuns[album].hasMusic(form.name)) {
+        console.log('Música já existe');
+        throw new DoubleMusicError();
+      }
     }
+    console.log('Adicionando música');
+    const music = new Music(form.name, artist, form.year, form.duration);
+    this.albuns[album].addMusic(music);
   }
 
   private existsAlbum(album): boolean {
-    for (const aux of this.albuns){
-      if (aux.name.toUpperCase() === album.name.toUpperCase()) {
-        return true;
-      }
-    }
-    return false;
+    return this.albuns[album] != null;
   }
-
-
 }
