@@ -45,7 +45,9 @@ export class AddMusicComponent implements OnInit {
       this.route.navigate(['musicas']);
     } catch (e) {
       if (e instanceof DoubleMusicError) {
-        this.form.value.name = '';
+        this.form.get('name').setValue('');
+        alert('Música já existente no álbum');
+        // TODO melhorar essa mensagem
       }
     }
   }

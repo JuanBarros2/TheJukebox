@@ -33,10 +33,28 @@
 
         <div class="form-group col-sm-6">
           <div >
-            <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Adicionar artista</button>
+            <button type="button" (click)="modal.open()" [disabled]="!isFormValid()" class="btn btn-primary">Adicionar Música</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<bs-modal [animation]="true" [keyboard]="true" [backdrop]="true" #modal  >
+  <bs-modal-header [showDismiss]="true">
+      <h4 class="modal-title">Tem certeza que deseja adicionar essa música?</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <p>Nome: {{form.value.name}}</p>
+    <p>Artista: {{form.value.artist}}</p>
+    <p>Álbum: {{form.value.album}}</p>
+    <p>Duração: {{form.value.duration}}</p>
+    <p>Ano de Lançamento: {{form.value.year}}</p>
+  </bs-modal-body>
+
+  <bs-modal-footer>
+    <button id="closeModal" type="button" class="btn btn-warning" (click)="modal.close()">Não</button>
+    <button type="submit" class="btn btn-success" (click)="onSubmit()" (click)="modal.close()">Sim</button>
+  </bs-modal-footer>
+</bs-modal>
