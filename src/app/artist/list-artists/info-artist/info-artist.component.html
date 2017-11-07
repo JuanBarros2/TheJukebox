@@ -23,6 +23,13 @@
               <li *ngFor="let album of albums"  class="list-group-item">{{album.name}}</li>
             </ul>
           </div>
+          <div class="col-sm-4 ">
+            <h5 class="lead">Músicas</h5>
+            <!-- List group -->
+            <ul class="list-group">
+              <li *ngFor="let music of musics" class="list-group-item">{{music.name}}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
