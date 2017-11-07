@@ -1,3 +1,4 @@
+import { Artist } from '../artist/artist';
 import { DoubleMusicError } from './../exception/double-music-error';
 import { DoubleAlbumError } from '../exception/double-album-error';
 import { Album } from './../album/album';
@@ -7,10 +8,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MusicService {
 
-  albuns: any = {};
+  albuns = new Map<string, Album>();
 
   constructor() {
-    this.albuns = {};
   }
 
   addMusic(form) {
@@ -34,5 +34,13 @@ export class MusicService {
 
   private existsAlbum(album): boolean {
     return this.albuns[album] != null;
+  }
+
+  getAlbuns(artist: Artist) {
+    this.albuns.forEach(element => {
+       console.log(element);
+    });
+
+    console.log(this.albuns.keys());
   }
 }

@@ -5,17 +5,23 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ArtistsService {
 
-  artists: Artist[] = [];
+  artists: Artist[] = [ new Artist('Roberto Carlos', `http://static.heloisatolipan.com.br/imagens//2016/12/roberto-carlos.jpg`),
+  new Artist('Maria Rita', `https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/9/7/d/f/97dfdeae9628304dfaf094f142207434.jpg`)
+];
 
   constructor() {
   }
 
   getArtists(number?, query?) {
-    const lenght = this.artists.length ;
-    let artists = number < lenght ? this.artists.slice((-1) * number) : this.artists;
+    let artists = this.artists;
     if (query) {
       artists = artists.filter( (artist) => artist.name.toUpperCase().includes(query.toUpperCase()));
     }
+    const lenght = artists.length;
+    if (number < lenght) {
+      artists = artists.slice((-1) * number);
+    }
+
     return artists;
   }
 

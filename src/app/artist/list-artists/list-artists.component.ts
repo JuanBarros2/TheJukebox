@@ -1,5 +1,6 @@
+import { MusicService } from './../../music/music.service';
+import { Artist } from './../artist';
 import { ArtistsService } from '../artists.service';
-import { Artist } from '../artist';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -14,7 +15,7 @@ export class ListArtistsComponent implements OnInit {
 
   artists: Artist[];
 
-  constructor(private artistsService: ArtistsService) {
+  constructor(private artistsService: ArtistsService, private musicService: MusicService) {
   }
 
   ngOnInit() {
@@ -24,5 +25,7 @@ export class ListArtistsComponent implements OnInit {
     this.artists = this.artistsService.getArtists(this.quantity, this.queryParameter);
     return this.artists;
   }
+
+
 
 }

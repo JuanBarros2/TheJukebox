@@ -1,0 +1,28 @@
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#{{artist.name.toLowerCase().concat('Id').replace(' ','')}}">{{artist.name}} </a>
+        <span *ngIf="artist.favorite"  class="badge">Favorito</span>
+      </h4>
+    </div>
+    <div id="{{artist.name.replace(' ','').toLowerCase().concat('Id')}}" class="panel-collapse collapse">
+      <div class="panel-body ">
+        <div class="row">
+          <div class="col-sm-4 ">
+            <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
+            <rating [(ngModel)]="artist.rating" [max]="5" [float]="true" [titles]="[1..10]"></rating>
+            <button type="button" class="btn btn-xs" [ngClass]="{ 'btn-info': !artist.favorite, 'btn-default': artist.favorite}"  (click)="favoriteArtist(artist)">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{ artist.favorite ? ' Desfavoritar' : ' Favoritar' }}
+            </button>
+          </div>
+          <div class="col-sm-4">
+            <ul class="list-group">
+              <li *ngFor="let album of getAlbuns(artist)"  class="list-group-item">Cras justo odio</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
