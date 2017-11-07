@@ -9,16 +9,18 @@
     <div id="{{artist.name.replace(' ','').toLowerCase().concat('Id')}}" class="panel-collapse collapse">
       <div class="panel-body ">
         <div class="row">
-          <div class="col-sm-4 ">
+          <div class="col-sm-4">
             <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
             <rating [(ngModel)]="artist.rating" [max]="5" [float]="true" [titles]="[1..10]"></rating>
-            <button type="button" class="btn btn-xs" [ngClass]="{ 'btn-info': !artist.favorite, 'btn-default': artist.favorite}"  (click)="favoriteArtist(artist)">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{ artist.favorite ? ' Desfavoritar' : ' Favoritar' }}
+            <button type="button" class="btn btn-xs" [ngClass]="{ 'btn-danger': !artist.favorite, 'btn-default': artist.favorite}"  (click)="favoriteArtist(artist)">
+              <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span>{{ artist.favorite ? ' Desfavoritar' : ' Favoritar' }}
             </button>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-4 ">
+            <h5 class="lead">Álbuns</h5>
+            <!-- List group -->
             <ul class="list-group">
-              <li *ngFor="let album of getAlbuns(artist)"  class="list-group-item">Cras justo odio</li>
+              <li *ngFor="let album of albums"  class="list-group-item">{{album.name}}</li>
             </ul>
           </div>
         </div>

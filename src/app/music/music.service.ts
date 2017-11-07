@@ -11,6 +11,8 @@ export class MusicService {
   albuns = new Map<string, Album>();
 
   constructor() {
+    this.albuns['Hambug'] = new Album('hambum');
+    this.albuns['Hambug'].addMusic(new Music('Estrada', 'Roberto Carlos', 1989, '3 min'));
   }
 
   addMusic(form) {
@@ -36,11 +38,20 @@ export class MusicService {
     return this.albuns[album] != null;
   }
 
-  getAlbuns(artist: Artist) {
-    this.albuns.forEach(element => {
-       console.log(element);
-    });
-
-    console.log(this.albuns.keys());
+  getAlbuns(artist: Artist): Album[] {
+    const albuns = this.albuns;
+    const resultAlbuns = [];
+    if (artist) {
+      for (const indexAlbum of Object.keys(albuns)) {
+        for (const indexMusic of Object.keys(albuns[indexAlbum].musics)) {
+          const music = albuns[indexAlbum].musics[indexMusic];
+          if (music ? music.artist.toUpperCase() === artist.name.toUpperCase() : false ) {
+            resultAlbuns.push(albuns[indexAlbum]);
+            break;
+          }
+        }
+      }
+    }
+    return resultAlbuns;
   }
 }

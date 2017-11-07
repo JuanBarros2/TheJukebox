@@ -11,10 +11,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class InfoArtistComponent implements OnInit {
 
   @Input() artist: Artist;
+  albums: Album[];
 
-  constructor(private musicService: MusicService) { }
+  constructor(private musicService: MusicService) {
+
+  }
 
   ngOnInit() {
+    this.albums = this.getAlbuns(this.artist);
   }
 
   favoriteArtist(artist: Artist) {
@@ -22,8 +26,7 @@ export class InfoArtistComponent implements OnInit {
   }
 
   getAlbuns(artist: Artist): Album[] {
-    this.musicService.getAlbuns(artist);
-    return null;
+    return this.musicService.getAlbuns(artist);
   }
 
 }
