@@ -25,7 +25,14 @@ export class InfoArtistComponent implements OnInit {
   }
 
   favoriteArtist(artist: Artist) {
-    artist.favorite = !artist.favorite;
+    if (artist.favorite === true) {
+      const r = confirm('Tem certeza que quer desfavoritar o artista?');
+      if (r) {
+          artist.favorite = !artist.favorite;
+      }
+    } else {
+      artist.favorite = !artist.favorite;
+    }
   }
 
   private getAlbuns(artist: Artist): Album[] {

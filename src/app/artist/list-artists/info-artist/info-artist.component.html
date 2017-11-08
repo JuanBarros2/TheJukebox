@@ -10,25 +10,37 @@
       <div class="panel-body ">
         <div class="row">
           <div class="col-sm-4">
-            <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
-            <rating [(ngModel)]="artist.rating" [max]="5" [float]="true" [titles]="[1..10]"></rating>
-            <button type="button" class="btn btn-xs" [ngClass]="{ 'btn-danger': !artist.favorite, 'btn-default': artist.favorite}"  (click)="favoriteArtist(artist)">
+            <div class="row col-sm-12">
+              <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
+            </div>
+            <div class="row col-sm-12">
+              <rating [(ngModel)]="artist.rating" [max]="5" [float]="true" [titles]="[1..10]"></rating>
+            </div>
+            <button type="button" class="btn btn-xs" [ngClass]="{
+              'btn-danger': !artist.favorite,
+              'btn-default': artist.favorite}" (click)="favoriteArtist(artist)">
               <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span>{{ artist.favorite ? ' Desfavoritar' : ' Favoritar' }}
             </button>
           </div>
-          <div class="col-sm-4 ">
+          <div class="col-sm-3 ">
             <h5 class="lead">Álbuns</h5>
             <!-- List group -->
             <ul class="list-group">
               <li *ngFor="let album of albums"  class="list-group-item">{{album.name}}</li>
             </ul>
           </div>
-          <div class="col-sm-4 ">
-            <h5 class="lead">Músicas</h5>
+          <div class="col-sm-5 ">
+            <h3>Músicas </h3>
             <!-- List group -->
             <ul class="list-group">
-              <li *ngFor="let music of musics" class="list-group-item">{{music.name}}</li>
+              <li *ngFor="let music of musics" [ngClass]="{'alert-info':artist.lastMusic === music.name}" (click)="artist.lastMusic = music.name" class="list-group-item">{{music.name}}</li>
+              <small>Click na última música escutada desse artista</small>
             </ul>
+
+            <h4 class="">Última música escutada</h4>
+            <p>
+              {{artist.lastMusic?artist.lastMusic:'Nenhuma música foi marcada ainda'}}
+            </p>
           </div>
         </div>
       </div>
