@@ -38,7 +38,7 @@ export class MusicService {
     return this.albuns[album] != null;
   }
 
-  getAlbuns(artist: Artist): Album[] {
+  getAlbuns(artist?: Artist): Album[] {
     const albuns = this.albuns;
     const resultAlbuns = [];
     if (artist) {
@@ -50,6 +50,10 @@ export class MusicService {
             break;
           }
         }
+      }
+    } else {
+      for (const indexAlbum of Object.keys(albuns)) {
+         resultAlbuns.push(albuns[indexAlbum]);
       }
     }
     return resultAlbuns;

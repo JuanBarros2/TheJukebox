@@ -1,10 +1,11 @@
-<div class="col-sm-8" routerLinkActive="invisible" >
-  <div class="fixed-action-btn" style="right: auto">
-    <button class="btn btn-primary" routerLink = "./add" >Adicionar Música</button>
+<div class="col-sm-12" routerLinkActive="invisible" >
+  <div class="row">
+    <div class="fixed-action-btn" style="right: auto">
+      <button class="btn btn-primary" routerLink = "./add" >Adicionar Música</button>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-4">
+  <div class="row">
+    <app-list-music></app-list-music>
   </div>
 </div>
 <router-outlet></router-outlet>

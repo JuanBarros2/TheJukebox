@@ -8,6 +8,8 @@ import { BsModalModule } from 'ng2-bs3-modal';
 
 import { MusicComponent } from './music.component';
 import { AddMusicComponent } from './add-music/add-music.component';
+import { ListMusicComponent } from './list-music/list-music.component';
+import { InfoMusicComponent } from './list-music/info-music/info-music.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +20,7 @@ import { AddMusicComponent } from './add-music/add-music.component';
     BsModalModule
   ],
   providers: [MusicService],
-  declarations: [AddMusicComponent, MusicComponent],
+  declarations: [AddMusicComponent, MusicComponent, ListMusicComponent, InfoMusicComponent],
   exports: [AddMusicComponent, MusicComponent]
 })
 export class MusicModule { }

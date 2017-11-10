@@ -1,3 +1,4 @@
+import { MusicService } from './music.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

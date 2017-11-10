@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
-    CommonModule,
-    AlbumRoutingModule
+    CommonModule
   ],
   declarations: [AlbumComponent],
   exports: [AlbumComponent]
