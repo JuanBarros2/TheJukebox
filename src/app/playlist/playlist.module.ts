@@ -1,3 +1,4 @@
+import { MusicService } from './../music/music.service';
 import { PlaylistService } from './playlist.service';
 import { UtilModule } from '../util/util.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddPlaylistComponent } from './add-playlist/add-playlist.component';
 import { ListPlaylistComponent } from './list-playlist/list-playlist.component';
+import { AddMusicComponent } from './add-music/add-music.component';
 
 @NgModule({
   imports: [
@@ -19,9 +21,10 @@ import { ListPlaylistComponent } from './list-playlist/list-playlist.component';
   declarations: [
     PlaylistComponent,
     AddPlaylistComponent,
-    ListPlaylistComponent
+    ListPlaylistComponent,
+    AddMusicComponent
   ],
-  providers: [ PlaylistService ],
+  providers: [ PlaylistService, MusicService ],
   exports: [ PlaylistComponent ]
 })
 export class PlaylistModule { }

@@ -23,7 +23,7 @@ export class PlaylistService {
         if (this.playlists[playlist.name]) {
           throw new DoublePlaylistError();
         } else {
-          this.playlists[playlist.name] = playlist;
+          this.playlists[playlist.name] = new Playlist(playlist.name);
         }
     }
   }
@@ -35,7 +35,10 @@ export class PlaylistService {
   }
 
   addMusicInPlaylist(name: string, music: Music) {
-    this.playlists.get(name).addMusic(music);
+    if (name && music) {
+      const playlist = this.playlists[name];
+      playlist.addMusic(music);
+    }
   }
 
   removeMusicInPlaylist(name: string, music: Music) {

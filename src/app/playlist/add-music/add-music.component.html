@@ -1,0 +1,27 @@
+<div class="col-sm-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Adicionar música a uma playlist</h3>
+    </div>
+    <div class="panel-body">
+      <form id=formId (ngSubmit)="submitMethod(refForm)" #refForm="ngForm">
+        <div class="form-group">
+          <div>
+            <select class="form-control" id="playlist" [(ngModel)] ="playlist" name="playlist" placeholder="Playlist" required>
+              <option *ngFor="let playlist of playlists" [ngValue]="playlist" >{{playlist.name}}</option>
+            </select>
+            <select class="form-control" id="music" [(ngModel)] ="music" name="music" placeholder="Música" required>
+              <option *ngFor="let music of musics" [ngValue]="music" >{{music.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div >
+            <button type="submit" [disabled]="refForm.invalid" class="btn btn-primary">Adicionar playlist</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

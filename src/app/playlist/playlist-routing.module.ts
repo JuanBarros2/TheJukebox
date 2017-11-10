@@ -1,3 +1,4 @@
+import { AddMusicComponent } from './add-music/add-music.component';
 import { AddPlaylistComponent } from './add-playlist/add-playlist.component';
 import { PlaylistComponent } from './playlist.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +13,13 @@ const routes: Routes = [
       {
         path: 'add', component: AddPlaylistComponent,
         data: {
-          breadcrumb: 'Adicionar'
+          breadcrumb: 'Adicionar playlist'
+        }
+      },
+      {
+        path: 'add/music', component: AddMusicComponent,
+        data: {
+          breadcrumb: 'Adicionar música'
         }
       }
     ]}

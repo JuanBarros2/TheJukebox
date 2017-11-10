@@ -58,4 +58,15 @@ export class MusicService {
     }
     return resultAlbuns;
   }
+
+  getMusics(): Music[] {
+    const albums = this.getAlbuns();
+    const musics = new Array<Music>();
+    for (const album of albums){
+      for (const key of Object.keys(album.musics)){
+        musics.push(album.musics[key]);
+      }
+    }
+    return musics;
+  }
 }

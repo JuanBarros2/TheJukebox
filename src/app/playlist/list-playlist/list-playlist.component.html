@@ -4,7 +4,7 @@
       <li class="list-group-item" *ngFor="let playlist of buildPlaylist()" >
         <a href="#{{getID(playlist)}}" data-toggle="collapse">{{playlist.name}}</a>
         <div id="{{getID(playlist)}}" class="panel-collapse collapse">
-          <div class="panel-body row">
+          <div class="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       row">
             <p *ngFor="let music of playlist.musics" class="col-sm-4" >{{music.name}}</p>
             <p *ngIf="!playlist.musics">Não foi adicionada nenhuma música</p>
           </div>
