@@ -31,9 +31,9 @@
           </div>
           <div class="col-sm-5 ">
             <h3>Músicas </h3>
-            <!-- List group -->
             <ul class="list-group">
-              <li *ngFor="let music of musics" [ngClass]="{'alert-info':artist.lastMusic === music.name}" (click)="artist.lastMusic = music.name" class="list-group-item">{{music.name}}</li>
+              <li *ngFor="let music of musics" [ngClass]="{'alert-info':artist.lastMusic === music.name}"
+              (click)="artist.lastMusic = music.name" class="list-group-item">{{music.name}}</li>
               <small>Click na última música escutada desse artista</small>
             </ul>
 
