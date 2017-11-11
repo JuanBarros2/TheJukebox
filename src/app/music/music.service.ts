@@ -11,8 +11,8 @@ export class MusicService {
   albuns = new Map<string, Album>();
 
   constructor() {
-    this.albuns['Hambug'] = new Album('hambum');
-    this.albuns['Hambug'].addMusic(new Music('Estrada', 'Roberto Carlos', 1989, '3 min'));
+    this.albuns['Pra Sempre'] = new Album('Pra Sempre');
+    this.albuns['Pra Sempre'].addMusic(new Music('Todo Mundo Me Pergunta', 'Roberto Carlos', 2003, '3 min'));
   }
 
   addMusic(form) {
