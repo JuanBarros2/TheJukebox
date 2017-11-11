@@ -1,16 +1,27 @@
-<div class="row">
-  <div class="col-sm-12">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let playlist of buildPlaylist()" >
-        <a href="#{{getID(playlist)}}" data-toggle="collapse">{{playlist.name}}</a>
-        <div id="{{getID(playlist)}}" class="panel-collapse collapse">
-          <div class="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       row">
-            <p *ngFor="let music of playlist.musics" class="col-sm-4" >{{music.name}}</p>
-            <p *ngIf="!playlist.musics">Não foi adicionada nenhuma música</p>
+<div class="panel-group">
+  <div class="panel panel-default" *ngFor="let playlist of buildPlaylist()" >
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#{{getID(playlist)}}">{{playlist.name}}</a>
+        <span class="glyphicon glyphicon-remove" (click)="removePlaylist(playlist)" aria-hidden="true"></span>
+      </h4>
+    </div>
+    <div id="{{getID(playlist)}}" class="panel-collapse collapse">
+      <div class="panel-body ">
+        <div class="row">
+          <div class="col-sm-4 ">
+            <h4>Músicas</h4>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let music of playlist.musics">{{music.name}}
+                <span class="glyphicon glyphicon-remove" (click)="removeMusicPlaylist(playlist, music)" aria-hidden="true"></span>
+              </li>
+            </ul>
+            <h5 *ngIf="playlist.musics.length == 0">Nenhuma música nessa playlist</h5>
           </div>
         </div>
-      </li>
-    </ul>
-    <h5 *ngIf="playlists.length == 0">Nenhuma playlist cadastrada</h5>
+
+      </div>
+    </div>
   </div>
+  <h4 *ngIf="playlists.length == 0">Nenhuma playlist cadastrada</h4>
 </div>

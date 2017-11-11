@@ -8,7 +8,9 @@ export class PlaylistService {
 
   playlists = new Map<string, Playlist>();
 
-  constructor() { }
+  constructor() {
+    this.playlists['Banho'] = new Playlist('Banho');
+  }
 
   getPlaylists(): Playlist[] {
     const result = [];
@@ -30,7 +32,7 @@ export class PlaylistService {
 
   removePlaylist(name: string) {
     if (name) {
-      this.playlists.delete(name);
+      delete this.playlists[name];
     }
   }
 
@@ -42,7 +44,7 @@ export class PlaylistService {
   }
 
   removeMusicInPlaylist(name: string, music: Music) {
-    this.playlists.get(name).deleteMusic(music);
+    this.playlists[name].deleteMusic(music);
   }
 
 }

@@ -25,6 +25,19 @@ export class ListPlaylistComponent implements OnInit {
     return playlist.name.toLowerCase().concat('Id').replace(' ', '');
   }
 
+  removePlaylist(playlist: Playlist) {
+    const r = confirm('Tem certeza que quer remover a playlist?');
+    if (r) {
+      this.playlistService.removePlaylist(playlist.name);
+    }
+  }
+
+  removeMusicPlaylist(playlist, music) {
+    const r = confirm('Tem certeza que quer remover essa música da playlist?');
+    if (r) {
+      this.playlistService.removeMusicInPlaylist(playlist.name, music);
+    }
+  }
 
 
 }

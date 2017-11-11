@@ -9,7 +9,7 @@ export class Playlist {
   }
 
   addMusic(music: Music) {
-    if (music) {
+    if (music && this.musics.indexOf(music) === -1) {
       this.musics.push(music);
     }
   }
