@@ -28,7 +28,7 @@ import { ListAlbumComponent } from './list-artists/info-artist/list-album/list-a
     UtilModule
   ],
   providers: [ArtistsService],
-  declarations: [ ArtistComponent, AddArtistComponent, ListArtistsComponent, SearchArtistComponent, InfoArtistComponent, ListAlbumComponent],
+  declarations: [ArtistComponent, AddArtistComponent, ListArtistsComponent, SearchArtistComponent, InfoArtistComponent, ListAlbumComponent],
   exports: [ArtistComponent]
 })
 export class ArtistModule { }
