@@ -1,3 +1,4 @@
+import { ServerApi } from './auth/server.api';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 
@@ -15,6 +16,9 @@ import { FacadeService } from './facade.service';
 import { BreadcrumbComponent } from './util/breadcrumb/breadcrumb.component';
 import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { AuthModule } from './auth/auth.module';
     ArtistModule,
     PlaylistModule,
     AlbumModule,
-    AuthModule
+    AuthModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(ServerApi),
   ],
   providers: [FacadeService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

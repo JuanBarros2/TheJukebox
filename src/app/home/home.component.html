@@ -1,5 +1,4 @@
 <div class="">
-  <h3>The Jukebox</h3>
   <nav class="navbar navbar-default ">
     <ul class="nav nav-pills">
       <li role="presentation" routerLinkActive = "active" >
@@ -10,13 +9,10 @@
       </li>
       <li role="presentation" routerLinkActive = "active" >
         <a routerLink = "/playlists">Playlist</a>
+      <li role="presentation" routerLinkActive = "active" >
+          <a (click)="logout()">Logout</a>
       </li>
     </ul>
     <app-breadcrumb></app-breadcrumb>
   </nav>
-</div>
-
-<div class="row container">
-  <router-outlet>
-  </router-outlet>
 </div>

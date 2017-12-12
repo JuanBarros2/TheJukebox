@@ -1,3 +1,19 @@
-<p>
-  register works!
-</p>
+<div class="row">
+  <form class="col-md-6 col-md-offset-2" #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" name="email" ngModel required email>
+      </div>
+      <div class="form-group">
+        <label for="username">Nome</label>
+        <input type="username" class="form-control" id="username" placeholder="Nome" name="username" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Senha</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required ngModel>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary col-md-12 col-sm-12">Cadastrar</button>
+      </div>
+    </form>
+</div>
