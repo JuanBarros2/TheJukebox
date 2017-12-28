@@ -33,8 +33,8 @@ export class AddArtistComponent implements OnInit {
     const artist = this.form.value;
 
     try {
-      this.artistsService.addArtist(artist);
-      this.route.navigate(['artistas']);
+      this.artistsService.addArtist(artist)
+        .subscribe((dado) => this.route.navigate(['artistas']));
     } catch (e) {
       if (e instanceof DoubleArtistError) {
         console.log(e.getMessage());

@@ -1,15 +1,24 @@
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { ServerService } from './../server.service';
+import { Http } from '@angular/http';
+import { AuthService } from './../auth/auth.service';
 import { DoubleArtistError } from './../exception/double-artist-error';
 import { Artist } from './artist';
 import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 
 @Injectable()
 export class ArtistsService {
 
-  artists: Artist[] = [ new Artist('Roberto Carlos', `http://static.heloisatolipan.com.br/imagens//2016/12/roberto-carlos.jpg`),
-  new Artist('Maria Rita', `https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/9/7/d/f/97dfdeae9628304dfaf094f142207434.jpg`)
-];
+  artists: Artist[] = [];
+  private headers = new HttpHeaders();
 
-  constructor() {
+  constructor(private authService: AuthService,
+    private http: Http,
+    private api: ServerService ) {
+      this.http.get(this.api.getUrlBase() + "artist/list", this.authService.getAuthentication({headers:this.headers}))
+      .map((res:Response) => res.json());
   }
 
   getArtists(number?, query?) {
@@ -18,6 +27,7 @@ export class ArtistsService {
       artists = artists.filter( (artist) => artist.name.toUpperCase().includes(query.toUpperCase()));
     }
     const lenght = artists.length;
+
     if (number < lenght) {
       artists = artists.slice((-1) * number);
     }
@@ -32,7 +42,10 @@ export class ArtistsService {
           throw new DoubleArtistError();
         }
       }
-      this.artists.push(artist);
+      const obs = this.http.post(this.api.getUrlBase() + "artist/add", this.authService.getAuthentication({headers:this.headers}));
+      obs.subscribe((dado) =>  this.artists.push(artist));
+      return obs;
+     ;
     }
   }
 

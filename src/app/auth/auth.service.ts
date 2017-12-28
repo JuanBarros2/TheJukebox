@@ -19,8 +19,8 @@ export class AuthService {
     private router: Router, 
     private http: HttpClient,
     private api: ServerService) { 
-      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.token = currentUser && currentUser.token;
+      let token = localStorage.getItem('token');
+      this.token = token;
     }
 
   isAuthenticate(): boolean {
@@ -28,17 +28,18 @@ export class AuthService {
   }
 
   registerUser(user: User): Observable<any>{
+    console.log(JSON.stringify(user));
     return this.http.post(this.api.getUrlBase() + "account/register", JSON.stringify(user), this.api.getOptions())
                     .pipe(catchError(this.handleError));
   }
 
   login(user: User): Observable<any>{
-    return this.http.post(this.api.getUrlBase() + 'auth/login', user)
-                    .map((res:Response) => {console.log("ué, funfous");
-                    let token = res.headers.has("Authentication") && res.headers.get("Authentication");
+    return this.http.post(this.api.getUrlBase() + 'auth/login', JSON.stringify(user), this.api.getOptions())
+                    .map((res:Response) => {
+                    let token = res['Authorization'];
                     if (token) {
                         this.token = token;
-                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        localStorage.setItem('token', token);
                     } 
                     return res;})
                     .pipe(catchError(this.handleError));
@@ -46,7 +47,7 @@ export class AuthService {
 
   logout(){
     this.token = null;
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
@@ -60,10 +61,9 @@ export class AuthService {
     return body.data || { };
   }
 
-  getAuthentication() {
-    let result = this.api.getOptions();
-    result.headers.append('Authorization', this.token );
-    return result;
+  getAuthentication(options) {
+    options.headers.append('Authorization', this.token );
+    return options;
   }
 }
   
