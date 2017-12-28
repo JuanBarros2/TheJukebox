@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form){
     const user = new User(form.value.email, form.value.password);
-    this.authService.login(user);
+    this.authService.login(user).subscribe((dado) => this.route.navigate(['/artistas']), (erro)=> alert(erro));
   }
 
   register(){

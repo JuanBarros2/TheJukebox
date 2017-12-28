@@ -1,4 +1,3 @@
-import { ServerApi } from './auth/server.api';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 
@@ -18,7 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
@@ -35,7 +33,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     AlbumModule,
     AuthModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(ServerApi),
+    HttpModule
   ],
   providers: [FacadeService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

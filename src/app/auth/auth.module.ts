@@ -1,3 +1,4 @@
+import { ServerService } from './../server.service';
 import { AuthRoutingModule } from './auth.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +13,7 @@ import { FormsModule } from '@angular/forms';
     AuthRoutingModule,
     FormsModule
   ],
+  providers: [ServerService],
   declarations: [LoginComponent, RegisterComponent]
 })
 export class AuthModule { }
