@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { Playlist } from './../playlist/playlist';
 import { Observable } from 'rxjs/Observable';
 import { Artist } from '../artist/artist';
 import { DoubleMusicError } from './../exception/double-music-error';
@@ -18,7 +20,11 @@ export class MusicService {
     this.http.get(this.api.getUrlBase() + "album/list")
       .pipe(catchError(this.api.handleError))
       .toPromise().then((dado) => dado.forEach(element => {
-        this.albuns[element.name] = element}));
+        const newer = new Album(element.name);
+        element.musicSet.forEach(music => {
+          newer.addMusic(new Music(music.name, music.artist.name, music.year, music.duration));
+        });
+        this.albuns[element.name] = newer}));
   }
 
   addMusic(form): Observable<any> {
@@ -28,7 +34,8 @@ export class MusicService {
     const tempAlbum = {"name":album};
     if (this.existsAlbum(album)) {
       console.log('Album já existe');
-      if (this.albuns[album].hasMusic(form.name)) {
+      const aux = this.albuns[album];
+      if (aux.musicSet[form.name]) {
         console.log('Música já existe');
         throw new DoubleMusicError();
       }

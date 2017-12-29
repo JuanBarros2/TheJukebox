@@ -7,6 +7,9 @@ export class Playlist {
     this.name = name;
     this.musics = new Array<Music>();
   }
+  setMusics(musics: Array<Music>){
+    this.musics = musics;
+  }
 
   addMusic(music: Music) {
     if (music && this.musics.indexOf(music) === -1) {

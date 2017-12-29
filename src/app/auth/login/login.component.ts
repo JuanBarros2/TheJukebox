@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private route: Router, private authService: AuthService) { 
     if(this.authService.isAuthenticate()){
-      this.route.navigate(['/artistas']);
+      this.route.navigate(['/musicas']);
     }
   }
 
