@@ -1,3 +1,4 @@
+import { Music } from './../music/music';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -59,10 +60,31 @@ export class ArtistsService{
     delete this.artists[index];
   }
 
-  favoriteArtist(artist: Artist){
-    this.http.put(this.api.getUrlBase()+"artist/favorite",
+  favoriteArtist(artist: Artist): Observable<any>{
+    const obs = this.http.put(this.api.getUrlBase()+"artist/favorite",
       JSON.stringify(artist), this.api.getOptions())
-      .pipe(catchError(this.api.handleError))
-      .subscribe((dado) => artist.favorite = !artist.favorite);
+      .pipe(catchError(this.api.handleError));
+    obs.subscribe((dado) => artist.favorite = !artist.favorite);
+    return obs;
+  }
+
+  lastMusic(music: Music, artist: Artist): Observable<any>{
+    let newer = new Artist(artist.name, null);
+    newer.lastMusic = music;
+
+    const obs = this.http.post(this.api.getUrlBase()+"artist/lastMusic",
+    JSON.stringify(newer), this.api.getOptions())
+    .pipe(catchError(this.api.handleError));
+    obs.subscribe((dado) => artist.lastMusic = music);
+    return obs;
+  }
+
+  rating(artist: Artist): Observable<any>{
+    const obs = this.http.put(this.api.getUrlBase()+"artist/rating",
+      JSON.stringify(artist), this.api.getOptions())
+      .pipe(catchError(this.api.handleError));
+    obs.subscribe((dado) => artist.rating = dado.rating);
+    return obs;
+  
   }
 }

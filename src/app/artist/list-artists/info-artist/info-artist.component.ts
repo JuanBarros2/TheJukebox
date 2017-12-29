@@ -53,4 +53,12 @@ export class InfoArtistComponent implements OnInit {
     return resultMusics;
   }
 
+  private lastMusic(music: Music, artist: Artist){
+    this.artistService.lastMusic(music, artist);
+  }
+
+  private rating(artist: Artist){
+    this.artistService.rating(artist);
+  }
+
 }

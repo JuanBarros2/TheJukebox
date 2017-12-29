@@ -14,7 +14,7 @@
               <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
             </div>
             <div class="row col-sm-12">
-              <rating [(ngModel)]="artist.rating" [max]="5" [float]="true" [titles]="[1..10]"></rating>
+              <rating [(ngModel)]="artist.rating" (click)="rating(artist)" [max]="5" [float]="true" [titles]="[1..10]"></rating>
             </div>
             <button type="button" class="btn btn-xs" [ngClass]="{
               'btn-danger': !artist.favorite,
@@ -32,14 +32,14 @@
           <div class="col-sm-5 ">
             <h3>Músicas </h3>
             <ul class="list-group">
-              <li *ngFor="let music of musics" [ngClass]="{'alert-info':artist.lastMusic === music.name}"
-              (click)="artist.lastMusic = music.name" class="list-group-item">{{music.name}}</li>
+              <li *ngFor="let music of musics" [ngClass]="{'alert-info':artist.lastMusic?.name === music.name}"
+              (click)="lastMusic(music, artist)" class="list-group-item">{{music.name}}</li>
               <small>Click na última música escutada desse artista</small>
             </ul>
 
             <h4 class="">Última música escutada</h4>
             <p>
-              {{artist.lastMusic?artist.lastMusic:'Nenhuma música foi marcada ainda'}}
+              {{artist.lastMusic?artist.lastMusic.name:'Nenhuma música foi marcada ainda'}}
             </p>
           </div>
         </div>
