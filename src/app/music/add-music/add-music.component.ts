@@ -44,8 +44,8 @@ export class AddMusicComponent implements OnInit {
     const music = this.form.value;
 
     try {
-      this.musicService.addMusic(music);
-      this.route.navigate(['musicas']);
+      this.musicService.addMusic(music)
+        .subscribe((dado)=> this.route.navigate(['musicas']));
     } catch (e) {
       if (e instanceof DoubleMusicError) {
         this.form.get('name').setValue('');

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Artist } from '../artist/artist';
 import { DoubleMusicError } from './../exception/double-music-error';
 import { DoubleAlbumError } from '../exception/double-album-error';
@@ -20,11 +21,11 @@ export class MusicService {
         this.albuns[element.name] = element}));
   }
 
-  addMusic(form) {
+  addMusic(form): Observable<any> {
     const album = form.album;
     const artist = form.artist;
 
-    const tempAlbum = new Album(album);
+    const tempAlbum = {"name":album};
     if (this.existsAlbum(album)) {
       console.log('Album já existe');
       if (this.albuns[album].hasMusic(form.name)) {
@@ -33,11 +34,15 @@ export class MusicService {
       }
     }
     const music = new Music(form.name, artist, form.year, form.duration);
-    tempAlbum.addMusic(music);
-    this.http.post(this.api.getUrlBase() + "album/add/music",
-                  JSON.stringify(music), 
-                  this.api.getOptions())
-      .pipe(this.api.handleError).subscribe((dado)=>this.albuns[album]= tempAlbum);
+    tempAlbum["musicSet"] = [music];
+    const obs = this.http.post(this.api.getUrlBase() + "album/add/music",
+    JSON.stringify(tempAlbum),
+    this.api.getOptions())
+      .pipe(catchError(this.api.handleError));
+    obs.subscribe((dado) => {
+      this.albuns[album] = new Album(name);
+      this.albuns[album].addMusic(music)});
+    return obs;
   }
 
   private existsAlbum(album): boolean {
