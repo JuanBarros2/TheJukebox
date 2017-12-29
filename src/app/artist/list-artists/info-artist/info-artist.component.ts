@@ -1,3 +1,4 @@
+import { ArtistsService } from './../../artists.service';
 import { Music } from './../../../music/music';
 import { MusicService } from '../../../music/music.service';
 import { Album } from './../../../album/album';
@@ -15,7 +16,7 @@ export class InfoArtistComponent implements OnInit {
   albums: Album[];
   musics: Music[];
 
-  constructor(private musicService: MusicService) {
+  constructor(private musicService: MusicService, private artistService: ArtistsService) {
 
   }
 
@@ -28,10 +29,10 @@ export class InfoArtistComponent implements OnInit {
     if (artist.favorite === true) {
       const r = confirm('Tem certeza que quer desfavoritar o artista?');
       if (r) {
-          artist.favorite = !artist.favorite;
+          this.artistService.favoriteArtist(artist);
       }
     } else {
-      artist.favorite = !artist.favorite;
+      this.artistService.favoriteArtist(artist);
     }
   }
 
@@ -42,9 +43,9 @@ export class InfoArtistComponent implements OnInit {
   private getMusics(albums: Album[], artist: Artist): Music[] {
     const resultMusics = [];
     for (const album of albums) {
-      for (const indexMusic of Object.keys(album.musics)) {
-        const music = album.musics[indexMusic];
-        if (music.artist.toUpperCase() === artist.name.toUpperCase()) {
+      for (const indexMusic of Object.keys(album.musicSet)) {
+        const music = album.musicSet[indexMusic];
+        if (music.artist.name.toUpperCase() === artist.name.toUpperCase()) {
           resultMusics.push(music);
         }
       }

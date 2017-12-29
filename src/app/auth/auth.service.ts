@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/observable/throw'
 import { Response } from '@angular/http';
 import { ServerService } from '../server.service';
-import { RequestOptions } from '@angular/http/src/base_request_options';
+import { RequestOptions } from '@angular/http';
 
 @Injectable()
 export class AuthService {
@@ -27,10 +27,15 @@ export class AuthService {
     return this.token != null;
   }
 
+  getToken(){
+    return this.token;
+  }
+
   registerUser(user: User): Observable<any>{
     console.log(JSON.stringify(user));
-    return this.http.post(this.api.getUrlBase() + "account/register", JSON.stringify(user), this.api.getOptions())
-                    .pipe(catchError(this.handleError));
+    return this.http.post(this.api.getUrlBase() + "account/register",
+                    JSON.stringify(user), this.api.getOptions())
+                    .pipe(catchError(this.api.handleError));
   }
 
   login(user: User): Observable<any>{
@@ -42,7 +47,7 @@ export class AuthService {
                         localStorage.setItem('token', token);
                     } 
                     return res;})
-                    .pipe(catchError(this.handleError));
+                    .pipe(catchError(this.api.handleError));
   }
 
   logout(){
@@ -51,19 +56,5 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  private handleError (error: any) {
-    let errMsg = (error.error && error.error.message) ? error.error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    return Observable.throw(errMsg);
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
-  }
-
-  getAuthentication(options) {
-    options.headers.append('Authorization', this.token );
-    return options;
-  }
 }
   

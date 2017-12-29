@@ -4,34 +4,40 @@ import { DoubleAlbumError } from '../exception/double-album-error';
 import { Album } from './../album/album';
 import { Music } from './music';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ServerService } from '../server.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class MusicService {
 
   albuns = new Map<string, Album>();
 
-  constructor() {
-    this.albuns['Pra Sempre'] = new Album('Pra Sempre');
-    this.albuns['Pra Sempre'].addMusic(new Music('Todo Mundo Me Pergunta', 'Roberto Carlos', 2003, '3 min'));
+  constructor(private http: HttpClient, private api: ServerService) {
+    this.http.get(this.api.getUrlBase() + "album/list")
+      .pipe(catchError(this.api.handleError))
+      .toPromise().then((dado) => dado.forEach(element => {
+        this.albuns[element.name] = element}));
   }
 
   addMusic(form) {
     const album = form.album;
     const artist = form.artist;
 
-    if (!this.existsAlbum(album)) {
-      console.log('Criando album');
-      this.albuns[album] = new Album(album);
-    } else {
+    const tempAlbum = new Album(album);
+    if (this.existsAlbum(album)) {
       console.log('Album já existe');
       if (this.albuns[album].hasMusic(form.name)) {
         console.log('Música já existe');
         throw new DoubleMusicError();
       }
     }
-    console.log('Adicionando música');
     const music = new Music(form.name, artist, form.year, form.duration);
-    this.albuns[album].addMusic(music);
+    tempAlbum.addMusic(music);
+    this.http.post(this.api.getUrlBase() + "album/add/music",
+                  JSON.stringify(music), 
+                  this.api.getOptions())
+      .pipe(this.api.handleError).subscribe((dado)=>this.albuns[album]= tempAlbum);
   }
 
   private existsAlbum(album): boolean {
@@ -43,9 +49,9 @@ export class MusicService {
     const resultAlbuns = [];
     if (artist) {
       for (const indexAlbum of Object.keys(albuns)) {
-        for (const indexMusic of Object.keys(albuns[indexAlbum].musics)) {
-          const music = albuns[indexAlbum].musics[indexMusic];
-          if (music ? music.artist.toUpperCase() === artist.name.toUpperCase() : false ) {
+        for (const indexMusic of Object.keys(albuns[indexAlbum].musicSet)) {
+          const music = albuns[indexAlbum].musicSet[indexMusic];
+          if (music ? music.artist.name.toUpperCase() === artist.name.toUpperCase() : false ) {
             resultAlbuns.push(albuns[indexAlbum]);
             break;
           }
@@ -63,8 +69,8 @@ export class MusicService {
     const albums = this.getAlbuns();
     const musics = new Array<Music>();
     for (const album of albums){
-      for (const key of Object.keys(album.musics)){
-        musics.push(album.musics[key]);
+      for (const key of Object.keys(album.musicSet)){
+        musics.push(album.musicSet[key]);
       }
     }
     return musics;

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { RequestOptions } from '@angular/http';
+import { Response } from '@angular/http';
 
 @Injectable()
 export class ServerService {
@@ -16,6 +17,17 @@ export class ServerService {
 
   getOptions(){
     return this.options;
+  }
+  
+  handleError (error: any) {
+    console.log(error);
+    let errMsg = (error.error && error.error.message) ? error.error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    return Observable.throw(errMsg);
+  }
+
+  extractData(res: Response) {
+    let body = res.json();
+    return body.data || { };
   }
 
 }

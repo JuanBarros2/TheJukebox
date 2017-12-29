@@ -1,7 +1,7 @@
-import { HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ServerService } from './../server.service';
-import { Http } from '@angular/http';
 import { AuthService } from './../auth/auth.service';
 import { DoubleArtistError } from './../exception/double-artist-error';
 import { Artist } from './artist';
@@ -9,16 +9,19 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 
 @Injectable()
-export class ArtistsService {
+export class ArtistsService{
 
   artists: Artist[] = [];
   private headers = new HttpHeaders();
 
-  constructor(private authService: AuthService,
-    private http: Http,
+  constructor(
+    private http: HttpClient,
     private api: ServerService ) {
-      this.http.get(this.api.getUrlBase() + "artist/list", this.authService.getAuthentication({headers:this.headers}))
-      .map((res:Response) => res.json());
+      this.http.get(this.api.getUrlBase()+"artist/list")
+      .pipe(catchError(this.api.handleError))
+      .subscribe((dado) => dado.forEach(element => {
+        this.artists.push(element);
+      }));
   }
 
   getArtists(number?, query?) {
@@ -42,7 +45,9 @@ export class ArtistsService {
           throw new DoubleArtistError();
         }
       }
-      const obs = this.http.post(this.api.getUrlBase() + "artist/add", this.authService.getAuthentication({headers:this.headers}));
+      const obs = this.http.post(this.api.getUrlBase()+"artist/add", 
+                          JSON.stringify(artist), 
+                          this.api.getOptions());
       obs.subscribe((dado) =>  this.artists.push(artist));
       return obs;
      ;
@@ -54,4 +59,10 @@ export class ArtistsService {
     delete this.artists[index];
   }
 
+  favoriteArtist(artist: Artist){
+    this.http.put(this.api.getUrlBase()+"artist/favorite",
+      JSON.stringify(artist), this.api.getOptions())
+      .pipe(catchError(this.api.handleError))
+      .subscribe((dado) => artist.favorite = !artist.favorite);
+  }
 }

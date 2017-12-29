@@ -1,3 +1,4 @@
+import { TokenInterceptorService } from './token-interceptor.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 
@@ -17,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,12 @@ import { HttpModule } from '@angular/http';
     HttpClientModule,
     HttpModule
   ],
-  providers: [FacadeService, AuthService, AuthGuard],
+  providers: [FacadeService, AuthService, AuthGuard, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
