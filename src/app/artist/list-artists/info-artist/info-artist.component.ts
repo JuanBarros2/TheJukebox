@@ -25,6 +25,11 @@ export class InfoArtistComponent implements OnInit {
     this.musics = this.getMusics(this.albums, this.artist);
   }
 
+  isFavorite(){
+    return this.artist.favorite ? ' Desfavoritar' : ' Favoritar';
+  }
+  
+
   favoriteArtist(artist: Artist) {
     if (artist.favorite === true) {
       const r = confirm('Tem certeza que quer desfavoritar o artista?');

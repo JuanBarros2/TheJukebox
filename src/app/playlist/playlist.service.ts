@@ -18,7 +18,7 @@ export class PlaylistService {
       .toPromise().then((dado) => dado.forEach(element => {
         const newer = new Playlist(element.name);
         element.musics.forEach(music => {
-          newer.addMusic(new Music(music.name, music.artist.name, music.year, music.duration));
+          newer.addMusic(new Music(music.name, music.artist.name, music.year, music.duration, music.album));
         });
         this.playlists[element.name] = newer}));
   }
@@ -49,7 +49,13 @@ export class PlaylistService {
 
   removePlaylist(name: string) {
     if (name) {
-      delete this.playlists[name];
+      const tempPlaylist = {"name" : name};
+      const obs = this.http.post(this.api.getUrlBase() + "playlist/remove",
+      JSON.stringify(tempPlaylist),
+      this.api.getOptions())
+        .pipe(catchError(this.api.handleError));
+      obs.subscribe((dado) => delete this.playlists[name]);
+      return obs;
     }
   }
 
@@ -74,7 +80,17 @@ export class PlaylistService {
   }
 
   removeMusicInPlaylist(name: string, music: Music) {
-    this.playlists[name].deleteMusic(music);
+    if (name && music) {
+      const tempPlaylist = {"name" : name};
+      tempPlaylist["musics"] = [music];
+      const obs = this.http.post(this.api.getUrlBase() + "playlist/remove/music",
+      JSON.stringify(tempPlaylist),
+      this.api.getOptions())
+        .pipe(catchError(this.api.handleError));
+      obs.subscribe((dado) => this.playlists[name].deleteMusic(music));
+      return obs;
+    }
+    
   }
 
 }

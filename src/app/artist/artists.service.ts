@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Music } from './../music/music';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -21,7 +22,11 @@ export class ArtistsService{
       this.http.get(this.api.getUrlBase()+"artist/list")
       .pipe(catchError(this.api.handleError))
       .subscribe((dado) => dado.forEach(element => {
-        this.artists.push(element);
+        const artist = new Artist(element.name, element.photo);
+        artist.favorite = element.favorite;
+        artist.lastMusic = element.lastMusic;
+        artist.rating = element.rating;
+        this.artists.push(artist);
       }));
   }
 
@@ -37,6 +42,15 @@ export class ArtistsService{
     }
 
     return artists;
+  }
+
+  downArtists():Observable<any>{
+    const obs = this.http.get(this.api.getUrlBase()+"artist/list")
+      .pipe(catchError(this.api.handleError));
+    obs.subscribe((dado) => dado.forEach(element => {
+        this.artists.push(new Artist(element.name, element.photo));
+      }));
+    return obs; 
   }
 
   addArtist(artist: Artist) {

@@ -16,7 +16,6 @@ export class ServerService {
   }
 
   getOptions(){
-    console.log(this.options);
     return this.options;
   }
   

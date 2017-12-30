@@ -19,7 +19,7 @@
             <button type="button" class="btn btn-xs" [ngClass]="{
               'btn-danger': !artist.favorite,
               'btn-default': artist.favorite}" (click)="favoriteArtist(artist)">
-              <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span>{{ artist.favorite ? ' Desfavoritar' : ' Favoritar' }}
+              <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span>{{ isFavorite() }}
             </button>
           </div>
           <div class="col-sm-3 ">

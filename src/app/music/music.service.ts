@@ -47,7 +47,7 @@ export class MusicService {
     this.api.getOptions())
       .pipe(catchError(this.api.handleError));
     obs.subscribe((dado) => {
-      this.albuns[album] = new Album(name);
+      this.albuns[album] = new Album(form.album);
       this.albuns[album].addMusic(music)});
     return obs;
   }
