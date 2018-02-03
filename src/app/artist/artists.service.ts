@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { Music } from './../music/music';
 import { catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -11,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 
 @Injectable()
-export class ArtistsService{
+export class ArtistsService {
 
   artists: Artist[] = [];
   private headers = new HttpHeaders();
@@ -19,7 +18,7 @@ export class ArtistsService{
   constructor(
     private http: HttpClient,
     private api: ServerService ) {
-      this.http.get(this.api.getUrlBase()+"artist/list")
+      this.http.get(this.api.getUrlBase() + 'artist/list')
       .pipe(catchError(this.api.handleError))
       .subscribe((dado) => dado.forEach(element => {
         const artist = new Artist(element.name, element.photo);
@@ -50,7 +49,7 @@ export class ArtistsService{
     obs.subscribe((dado) => dado.forEach(element => {
         this.artists.push(new Artist(element.name, element.photo));
       }));
-    return obs; 
+    return obs;
   }
 
   addArtist(artist: Artist) {
@@ -60,8 +59,8 @@ export class ArtistsService{
           throw new DoubleArtistError();
         }
       }
-      const obs = this.http.post(this.api.getUrlBase()+"artist/add", 
-                          JSON.stringify(artist), 
+      const obs = this.http.post(this.api.getUrlBase()+"artist/add",
+                          JSON.stringify(artist),
                           this.api.getOptions());
       obs.subscribe((dado) =>  this.artists.push(artist));
       return obs;
@@ -99,6 +98,6 @@ export class ArtistsService{
       .pipe(catchError(this.api.handleError));
     obs.subscribe((dado) => artist.rating = dado.rating);
     return obs;
-  
+
   }
 }

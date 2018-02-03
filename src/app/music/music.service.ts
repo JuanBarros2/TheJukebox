@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { Playlist } from './../playlist/playlist';
 import { Observable } from 'rxjs/Observable';
 import { Artist } from '../artist/artist';
@@ -17,21 +16,22 @@ export class MusicService {
   albuns = new Map<string, Album>();
 
   constructor(private http: HttpClient, private api: ServerService) {
-    this.http.get(this.api.getUrlBase() + "album/list")
+    this.http.get(this.api.getUrlBase() + 'album/list')
       .pipe(catchError(this.api.handleError))
       .toPromise().then((dado) => dado.forEach(element => {
         const newer = new Album(element.name);
         element.musicSet.forEach(music => {
           newer.addMusic(new Music(music.name, music.artist.name, music.year, music.duration));
         });
-        this.albuns[element.name] = newer}));
+        this.albuns[element.name] = newer;
+      }));
   }
 
   addMusic(form): Observable<any> {
     const album = form.album;
     const artist = form.artist;
 
-    const tempAlbum = {"name":album};
+    const tempAlbum = {'name': album};
     if (this.existsAlbum(album)) {
       console.log('Album já existe');
       const aux = this.albuns[album];
@@ -41,14 +41,15 @@ export class MusicService {
       }
     }
     const music = new Music(form.name, artist, form.year, form.duration);
-    tempAlbum["musicSet"] = [music];
-    const obs = this.http.post(this.api.getUrlBase() + "album/add/music",
+    tempAlbum['musicSet'] = [music];
+    const obs = this.http.post(this.api.getUrlBase() + 'album/add/music',
     JSON.stringify(tempAlbum),
     this.api.getOptions())
       .pipe(catchError(this.api.handleError));
     obs.subscribe((dado) => {
       this.albuns[album] = new Album(form.album);
-      this.albuns[album].addMusic(music)});
+      this.albuns[album].addMusic(music);
+    });
     return obs;
   }
 
