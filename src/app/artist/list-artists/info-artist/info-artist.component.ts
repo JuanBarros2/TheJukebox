@@ -4,7 +4,7 @@ import { MusicService } from '../../../music/music.service';
 import { Album } from './../../../album/album';
 import { Artist } from '../../artist';
 import { Component, OnInit, Input } from '@angular/core';
-import { Rating } from 'ngx-rating';
+import { RatingModule } from 'ngx-rating';
 
 @Component({
   selector: 'app-info-artist',
@@ -26,7 +26,7 @@ export class InfoArtistComponent implements OnInit {
     this.musics = this.getMusics(this.albums, this.artist);
   }
 
-  isFavorite(){
+  isFavorite() {
     return this.artist.favorite ? ' Desfavoritar' : ' Favoritar';
   }
 
@@ -59,11 +59,11 @@ export class InfoArtistComponent implements OnInit {
     return resultMusics;
   }
 
-  private lastMusic(music: Music, artist: Artist){
+  private lastMusic(music: Music, artist: Artist) {
     this.artistService.lastMusic(music, artist);
   }
 
-  private rating(artist: Artist){
+  private rating(artist: Artist) {
     this.artistService.rating(artist);
   }
 
