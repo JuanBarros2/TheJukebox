@@ -14,7 +14,7 @@
               <img class="img-circle " src="{{artist.photo}}" alt="Erro ao carregar foto">
             </div>
             <div class="row col-sm-12">
-              <rating [(ngModel)]="artist.rating" (click)="rating(artist)" [max]="5" [float]="true" [titles]="[1..10]"></rating>
+              <rating [(ngModel)]="artist.getRating()" (click)="rating(artist)" [max]="5" [float]="true" [titles]="[1..10]"></rating>
             </div>
             <button type="button" class="btn btn-xs" [ngClass]="{
               'btn-danger': !artist.favorite,
