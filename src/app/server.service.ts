@@ -7,18 +7,18 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class ServerService {
-  URL_BASE: string = "http://localhost:8080/";
+  URL_BASE = 'https://backendthejukebox.herokuapp.com/';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json'});
   private options = { headers: this.headers };
 
-  getUrlBase(): string{
+  getUrlBase(): string {
     return this.URL_BASE;
   }
 
-  getOptions(){
+  getOptions() {
     return this.options;
   }
-  
+
   handleError (error: any) {
     console.log(error);
     let errMsg = (error.error && error.error.message) ? error.error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
@@ -26,7 +26,7 @@ export class ServerService {
   }
 
   extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body.data || { };
   }
 
