@@ -7,7 +7,7 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class ServerService {
-  URL_BASE = 'https://backendthejukebox.herokuapp.com/';
+  URL_BASE = 'https://powerful-atoll-11123.herokuapp.com/';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json'});
   private options = { headers: this.headers };
 
